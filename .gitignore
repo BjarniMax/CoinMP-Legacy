@@ -1,0 +1,8 @@
+BuildLog.htm
+CoinMP.res
+mt.dep
+CoinMP.dll.embed.manifest
+CoinMP.dll.embed.manifest.res
+CoinMP.dll.intermediate.manifest
+*.idb
+*.exp
