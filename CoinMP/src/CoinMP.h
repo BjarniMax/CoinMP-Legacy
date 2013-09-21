@@ -12,7 +12,7 @@
 /*                                                                      */
 /************************************************************************/
 
-/* $Id: CoinMP.h 487 2013-09-20 07:55:51Z bjarni $ */
+/* $Id: CoinMP.h 525 2013-09-20 09:46:08Z bjarni $ */
 
 #ifndef _COINMP_H_
 #define _COINMP_H_
@@ -20,19 +20,24 @@
 
 #if defined(_MSC_VER) && !defined(HAVE_CONFIG_H)
 
-#define SOLVCALL   __stdcall
-#ifdef SOLVER_EXPORT
-#define SOLVAPI  __declspec(dllexport)
-#else
-#define SOLVAPI __declspec(dllimport)
+# define SOLVCALL   __stdcall
+# if defined(SOLVER_EXPORT) && !defined(_WIN64)
+#  define SOLVAPI  __declspec(dllexport)
+# endif
+# if defined(SOLVER_IMPORT)
+#  define SOLVAPI __declspec(dllimport)
+# endif
+
 #endif
 
-#else
+#ifndef SOLVAPI
+#define SOLVAPI
+#endif
 
-#define SOLVAPI 
+#ifndef SOLVCALL
 #define SOLVCALL
-
 #endif
+
 
 
 #ifndef SOLV_LINK_LIB

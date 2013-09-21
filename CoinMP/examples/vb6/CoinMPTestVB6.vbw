@@ -1,0 +1,9 @@
+frmCoinMP = 0, 0, 0, 0, C, 25, 25, 483, 487, C
+LibCoinMP = 0, 0, 0, 0, C
+SolveBakery = 0, 0, 0, 0, C
+LogWrite = 0, 0, 0, 0, C
+RunProblem = 0, 0, 0, 0, C
+SolveCoinTest = 0, 0, 0, 0, C
+SolveExMip1 = 0, 0, 0, 0, C
+SolveAfiro = 0, 0, 0, 0, C
+SolveP0033 = 0, 0, 0, 0, C

@@ -4,5 +4,6 @@ mt.dep
 CoinMP.dll.embed.manifest
 CoinMP.dll.embed.manifest.res
 CoinMP.dll.intermediate.manifest
+CoinMPTestCS9.vshost.exe.manifest
 *.idb
 *.exp
