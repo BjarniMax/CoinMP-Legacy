@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+ <?define Software="CoinMP" ?>
+ <?define Version="1.7.4" ?>
+ <?define DistName="Windows" ?>
+ <?define Manager="Maximal Software, Inc." ?>
+ 
+ <?define CoinMPSoftware="_100_CoinMPSoftware" ?>
+ <?define CoinMP64bit="_120_CoinMP64bit" ?>
+ <?define CoinMPExamples="_200_CoinMPExamples" ?>
+
+ <?ifndef Win64 ?>
+  <?ifndef Win32 ?>
+   <?define Win32 ?>
+  <?endif ?>
+ <?endif ?>
+ 
+ 
+ <!-- Setup -->
+ 
+ <?ifdef Setup ?>
+ <?ifdef Win32 ?>
+  <?define DistName="(32-bit)" ?>
+  <?define ProductCode="463DA199-A559-4cf3-9DF5-DBDE1C68E84E" ?>
+  <?define UpgradeCode="62BC4D6F-9C61-48b0-ACD6-F175B041B815" ?>
+ <?endif ?>
+ <?ifdef Win64 ?>
+  <?define DistName="(64-bit)" ?>
+  <?define ProductCode="BD4D4811-626E-4f63-A4E5-EFB33B6F813C" ?>
+  <?define UpgradeCode="5D5A472F-66CA-4c55-9E6D-E1979DC6A746" ?>
+ <?endif ?>
+ <?endif ?>
+ <!-- Solvers -->
+ 
+ <!-- Other Defines -->
+ <?ifdef ProductCode ?>
+  <?undef ProductCode ?>
+ <?endif ?>
+ <?ifndef ProductCode ?>
+  <?define ProductCode="????????-????-????-????-????????????" ?>
+ <?endif ?>
+ 
+</Include>

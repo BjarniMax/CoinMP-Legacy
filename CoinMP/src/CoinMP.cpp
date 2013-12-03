@@ -12,7 +12,7 @@
 /*                                                                      */
 /************************************************************************/
 
-// $Id: CoinMP.cpp 579 2013-11-30 17:44:06Z tkr $
+// $Id: CoinMP.cpp 598 2013-12-02 04:36:24Z tkr $
 
 #include <stdlib.h>
 #include <string.h>
@@ -28,9 +28,7 @@
 #include "CoinCbc.h"
 
 
-#ifndef COIN_DBL_MAX
-#define COIN_DBL_MAX DBL_MAX
-#endif
+#include "config_coinmp_default.h"
 
 
 #define SOLVER_EXPORT
@@ -38,11 +36,10 @@
 #include "CoinMP.h"
 
 
-#define NEW_STYLE_CBCMAIN
+const char*  COINMP_VERSIONSTR = "1.7.5";
+const int    COINMP_VERSIONINT = 175;
+const double COINMP_VERSIONDBL = 1.75;
 
-
-const double COINMP_VERSION    = 1.7;
-const char*  COINMP_VERSIONSTR = "1.7.1";
 const char*  COINMP_NAME       = "CoinMP";
 
 
@@ -97,7 +94,7 @@ SOLVAPI int  SOLVCALL CoinGetVersionStrBuf(char* VersionStr, int buflen)
 
 SOLVAPI double SOLVCALL CoinGetVersion(void)
 {
-	return COINMP_VERSION;
+	return COINMP_VERSIONDBL;
 }
 
 

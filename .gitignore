@@ -1,4 +1,6 @@
 CoinMP_zip/
+CoinMP_dist/
+obj/
 BuildLog.htm
 CoinMP.res
 mt.dep
@@ -6,6 +8,8 @@ CoinMP.dll.embed.manifest
 CoinMP.dll.embed.manifest.res
 CoinMP.dll.intermediate.manifest
 CoinMPTestCS9.vshost.exe.manifest
+unitTest.exe.embed.manifest
+unitTest.exe.embed.manifest.res
 unitTest.exe.intermediate.manifest
 *.idb
 *.exp

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <?include $(sys.CURRENTDIR)include.wxi ?>
+  <Product Name="$(var.Software) $(var.DistName)" Id="$(var.ProductCode)" Version="$(var.Version)"
+    Language="1033" Codepage="1252" Manufacturer="$(var.Manager)" UpgradeCode="$(var.UpgradeCode)">
+
+    <Package Id="????????-????-????-????-????????????" Keywords="Installer"
+      Description="$(var.Software) $(var.DistName) Installer"
+      Comments="$(var.Software) is managed by $(var.Manager)" Manufacturer="$(var.Manager)"
+      InstallerVersion="200" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+
+	<Property Id="NEWER_VERSION_FOUND" Secure="yes" />
+	<Property Id="PREVIOUS_VERSION_FOUND" Secure="yes" />
+	
+	<Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion OnlyDetect="yes" Property="NEWER_VERSION_FOUND" Minimum="$(var.Version)" IncludeMinimum="no" />
+      <UpgradeVersion OnlyDetect="no" Property="PREVIOUS_VERSION_FOUND" Maximum="$(var.Version)" IncludeMaximum="yes" />
+	</Upgrade>
+	
+	<InstallExecuteSequence>
+	  <RemoveExistingProducts After="InstallInitialize" />
+	  <Custom Action='PreventDowngrading' After='FindRelatedProducts'>NEWER_VERSION_FOUND</Custom>
+	</InstallExecuteSequence>
+	
+	<CustomAction Id='PreventDowngrading' Error='Newer version of $(var.Software) than this $(var.Version) is already installed on this machine' />
+	
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+    <Property Id="DiskPrompt" Value="$(var.Software) $(var.Version) Installation [1]" />
+    <Property Id="ROOTDRIVE">
+      <![CDATA[C:]]>
+    </Property>
+	
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="INSTALLDIR" Name="CoinMP" />
+	</Directory>
+	
+    <DirectoryRef Id="INSTALLDIR">
+
+      <Component Id="CoinMP.dll" Guid="B4839965-5E3A-4306-B0D1-587B37018408">
+        <File Source="..\CoinMP_dist\CoinMP.dll" Vital="yes" />
+        <File Source="..\CoinMP_dist\CoinMP.exp" Vital="yes" />
+        <File Source="..\CoinMP_dist\CoinMP.lib" Vital="yes" />
+      </Component>
+	 
+      <Component Id="CoinMP.h" Guid="661C2131-2FA6-46d2-832F-56D7C88AC60F">
+        <File Source="..\CoinMP_dist\CoinMP.h" Vital="yes" />
+      </Component>
+	 
+      <Component Id="example.c" Guid="661C2131-2FA6-46d2-832F-56D7C88AC60F">
+        <File Source="..\CoinMP_dist\example.c" Vital="yes" />
+      </Component>
+	 
+      <Component Id="unittest.cpp" Guid="1FDB14A1-5E5C-4402-A383-8642ABA37849">
+        <File Source="..\CoinMP_dist\unittest.cpp" Vital="yes" />
+      </Component>
+	 
+      <Component Id="unittest.exe" Guid="B7A7C4FE-E55F-4e4f-83CF-D233AF069366">
+        <File Source="..\CoinMP_dist\unittest.exe" Vital="yes" />
+      </Component>
+	 
+      <Component Id="CoinMPTestCS9.exe" Guid="4E82CDA1-55D6-4982-86B3-991160F58A9C">
+        <File Source="..\CoinMP_dist\CoinMPTestCS9.exe" Vital="yes" />
+      </Component>
+	 
+      <Component Id="CoinMPTestVB6.exe" Guid="EA877D37-1E28-49b8-999F-914C640354E1">
+        <File Source="..\CoinMP_dist\CoinMPTestVB6.exe" Vital="yes" />
+      </Component>
+
+	  <DirectoryRef Id="x64">
+ 	    <Component Id="x64_CoinMP.dll" Guid="739C66DB-5631-490b-9D6E-5E9B8EA6D2D3">
+          <File Source="..\CoinMP_dist\x64\CoinMP.dll" Vital="yes" />
+          <File Source="..\CoinMP_dist\x64\CoinMP.exp" Vital="yes" />
+          <File Source="..\CoinMP_dist\x64\CoinMP.lib" Vital="yes" />
+        </Component>
+	 
+ 	    <Component Id="x64_unittest.exe" Guid="315A30B6-6589-4596-A923-C8E517B5C6E8">
+          <File Source="..\CoinMP_dist\x64\unittest.exe" Vital="yes" />
+	    </Component>
+	  </DirectoryRef>
+	 
+	  <DirectoryRef Id="src">
+	    <Component Id="src" Guid="526BE90D-0A12-4b34-81D0-9AB8B2EAF875">
+	      <File Source="..\CoinMP_dist\src\CoinCbc.cpp" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinCbc.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinMP.cpp" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinMP.def" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinMP.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinMPConfig.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinOption.c" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinOption.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinProblem.c" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinProblem.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinResult.c" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinResult.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinSolver.c" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\CoinSolver.h" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\config_coinmp_default.h" Vital="yes" />
+	    </Component>
+	  </DirectoryRef>
+	 
+	  <DirectoryRef Id="csharp">
+	    <Component Id="csharp_coinmp.cs" Guid="340ADF08-F126-4488-A896-7748FC9C7704">
+	      <File Source="..\CoinMP_dist\src\csharp\coinmp.cs" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_CoinMPTestCS9.csproj" Guid="2A4E81C3-E5BF-4a58-BC63-6CBE4A6FEC04">
+	      <File Source="..\CoinMP_dist\src\csharp\CoinMPTestCS9.csproj" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_CoinMPTestCS9.sln" Guid="F9541519-EC9E-409f-8B31-3261709AC19A">
+	      <File Source="..\CoinMP_dist\src\csharp\CoinMPTestCS9.sln" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_Form1.cs" Guid="1D241913-A3FC-4af4-8F2B-AC509AAC0B30">
+	      <File Source="..\CoinMP_dist\src\csharp\Form1.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\Form1.Designer.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\Form1.resx" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_LogHandler.cs" Guid="11A688B6-154B-45da-9649-FA2EAFFCD57E">
+	      <File Source="..\CoinMP_dist\src\csharp\LogHandler.cs" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_Problems" Guid="B35906A4-8470-44a1-98E5-D488DF8FDFC3">
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemAfiro.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemBakery.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemCoinTest.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemExMip1.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemGamsSos1a.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemGamsSos2a.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemP0033.cs" Vital="yes" />
+	      <File Source="..\CoinMP_dist\src\csharp\ProblemSemiCont.cs" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_Program.cs" Guid="29784A2D-9E26-4197-9684-16245684736B">
+	      <File Source="..\CoinMP_dist\src\csharp\Program.cs" Vital="yes" />
+	    </Component>
+	    <Component Id="csharp_SolveProblem.cs" Guid="74F8029C-AF83-4e10-8857-197673A03744">
+	      <File Source="..\CoinMP_dist\src\csharp\SolveProblem.cs" Vital="yes" />
+	    </Component>
+		
+	    <DirectoryRef Id="csharp_bin">
+ 	      <DirectoryRef Id="csharp_bin_Release">
+	        <Component Id="csharp_bin_Release_CoinMPTestCS9.exe" Guid="60F65E78-DD02-444a-8100-606067BB3F9D">
+	          <File Source="..\CoinMP_dist\src\csharp\bin\Release\CoinMPTestCS9.exe" Vital="yes" />
+		    </Component>
+	      </DirectoryRef>
+	    </DirectoryRef>
+		
+	    <DirectoryRef Id="csharp_Properties">
+		  <ComponentRef Id="csharp_Properties" Guid="EAE8A342-1C10-4c5b-B6CD-388C41E39393">
+		    <File Source="..\CoinMP_dist\src\csharp\Properties\AssemblyInfo.cs" Vital="yes" />
+		    <File Source="..\CoinMP_dist\src\csharp\Properties\Resources.Designer.cs" Vital="yes" />
+		    <File Source="..\CoinMP_dist\src\csharp\Properties\Resources.resx" Vital="yes" />
+		    <File Source="..\CoinMP_dist\src\csharp\Properties\Settings.Designer.cs" Vital="yes" />
+		    <File Source="..\CoinMP_dist\src\csharp\Properties\Settings.settings" Vital="yes" />
+		  </ComponentRef>
+	    </DirectoryRef>
+      </DirectoryRef>
+	 
+	</DirectoryRef>
+	
+    <Feature Id="Complete" Title="$(var.Software)" Description="The complete $(var.Software) Software."
+      Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+
+      <Feature Id="$(var.CoinMPSoftware)">
+	    <ComponentRef Id="CoinMP.dll" />
+		<ComponentRef Id="CoinMP.h" />
+		<ComponentRef Id="example.c" />
+		<ComponentRef Id="unittest.cpp" />
+		<ComponentRef Id="unittest.exe" />
+		<ComponentRef Id="CoinMPTestCS9.exe" />
+		<ComponentRef Id="CoinMPTestVB6.exe" />
+	  </Feature>
+	  
+      <FeatureRef Id="$(var.Optimax)" />
+	  
+      <FeatureRef Id="$(var.CoinMP)" />
+
+    </Feature>
+
+  </Product>
+</Wix>

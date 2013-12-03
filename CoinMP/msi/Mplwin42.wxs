@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <?include $(sys.CURRENTDIR)include.wxi ?>
+  <Fragment Id="FragmentMplwin42">
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <?ifdef Win32 ?>
+    <Icon Id="mplwin42.exe" SourceFile="..\Programs\mplwin42.exe" />
+    <?endif ?>
+    <?ifdef Win64 ?>
+    <Icon Id="mplwin42.exe" SourceFile="..\Programs\64bit\mplwin42.exe" />
+    <?endif ?>
+
+    <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+    <Property Id="DiskPrompt" Value="MPL for Windows 4.2 Installation [1]" />
+    <Property Id="ROOTDRIVE">
+      <![CDATA[C:]]>
+    </Property>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <?ifdef Win32 ?>
+      <Directory Id="INSTALLDIR" Name="Mplwin4" />
+      <?endif ?>
+      <?ifdef Win64 ?>
+      <Directory Id="INSTALLDIR" Name="Mplw4_64" LongName="Mplwin4_64" />
+      <?endif ?>
+      <Directory Id="ProgramMenuFolder" Name="PMenu" LongName="Programs">
+        <?ifdef Win32 ?>
+        <Directory Id="ProgramMenuDir" Name="Mplwin42" LongName="MPL for Windows 4.2" />
+        <?endif ?>
+        <?ifdef Win64 ?>
+        <Directory Id="ProgramMenuDir" Name="Mplw4264" LongName="MPL for Windows 4.2 (64-bit)" />
+        <?endif ?>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+
+	  <?ifdef Win32 ?>
+       <Component Id="Mplwin42ExeFile" Guid="74123AF0-1B8B-4113-9FDA-8C5479149947">
+        <File Id="Mplwin42EXE" Name="mplwin42.exe" DiskId="1" Source="..\Programs\mplwin42.exe" Vital="yes">
+          <Shortcut Id="ProgramMenu_mplwin42.exe" Directory="ProgramMenuFolder" Name="Mplwin42"
+            LongName="MPL for Windows 4.2" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+          <Shortcut Id="StartMenu_mplwin42.exe" Directory="ProgramMenuDir" Name="Mplwin42"
+            LongName="MPL for Windows 4.2" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+          <Shortcut Id="Desktop_mplwin42.exe" Directory="DesktopFolder" Name="Mplwin42"
+            LongName="MPL for Windows 4.2" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+        </File>
+      </Component>
+      <?endif ?>
+	  <?ifdef Win64 ?>
+      <Component Id="Mplwin42ExeFile" Guid="7670216D-A8A6-4b41-ADA7-69693493641E">
+        <File Id="Mplwin42EXE" Name="mplwin42.exe" DiskId="1" Source="..\Programs\64bit\mplwin42.exe" Vital="yes">
+          <Shortcut Id="ProgramMenu_mplwin42.exe" Directory="ProgramMenuFolder" Name="Mplwin42"
+            LongName="MPL for Windows 4.2 (64-bit)" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+          <Shortcut Id="StartMenu_mplwin42.exe" Directory="ProgramMenuDir" Name="Mplwin42"
+            LongName="MPL for Windows 4.2 (64-bit)" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+          <Shortcut Id="Desktop_mplwin42.exe" Directory="DesktopFolder" Name="Mplwin42"
+            LongName="MPL for Windows 4.2 (64-bit)" WorkingDirectory="INSTALLDIR" Icon="mplwin42.exe" IconIndex="0" />
+        </File>
+      </Component>
+      <?endif ?>
+
+	  <Component Id="MplwinProgIDs" Guid="FB6AD92D-E289-4D86-9145-21A5341F2F19">
+        <ProgId Id="Mplwin.Modelfile" Description="MPL Model File" Icon="[!Mplwin42EXE],1">
+          <Extension Id="mpl" ContentType="application/mpl">
+            <Verb Id="open" Command="Open" Target="[!Mplwin42EXE]" Argument="&quot;%1&quot;"/>
+            <Verb Id="solve" Command="Solve" Target="[!Mplwin42EXE]" Argument="/solve &quot;%1&quot;"/>
+          </Extension>
+        </ProgId>
+        <ProgId Id="Mplwin.Projectfile" Description="MPL Project File" Icon="[!Mplwin42EXE],2">
+          <Extension Id="mpj" ContentType="application/mpj">
+            <Verb Id="open" Command="Open" Target="[!Mplwin42EXE]" Argument="&quot;%1&quot;"/>
+            <Verb Id="solve" Command="Solve" Target="[!Mplwin42EXE]" Argument="/solve &quot;%1&quot;"/>
+          </Extension>
+        </ProgId>
+        <ProgId Id="Mplwin.Datafile" Description="MPL Data File" Icon="[!Mplwin42EXE],3">
+          <Extension Id="dat" ContentType="application/dat" />
+        </ProgId>
+        <ProgId Id="Mplwin.Solutionfile" Description="MPL Solution File" Icon="[!Mplwin42EXE],6">
+          <Extension Id="sol" ContentType="application/sol" />
+        </ProgId>
+        <ProgId Id="Mplwin.Logfile" Description="MPL Log File" Icon="[!Mplwin42EXE],7">
+          <Extension Id="log" ContentType="application/log" />
+          <Extension Id="mlg" ContentType="application/mlg" />
+        </ProgId>
+        <ProgId Id="Mplwin.Mpsfile" Description="MPS Model File" Icon="[!Mplwin42EXE],5">
+          <Extension Id="mps" ContentType="application/mps">
+            <Verb Id="open" Command="Open" Target="[!Mplwin42EXE]" Argument="&quot;%1&quot;"/>
+            <Verb Id="solve" Command="Solve" Target="[!Mplwin42EXE]" Argument="/solve &quot;%1&quot;"/>
+          </Extension>
+        </ProgId>
+        <ProgId Id="Mplwin.Indexfile" Description="MPL Index File" Icon="[!Mplwin42EXE],4">
+          <Extension Id="idx" ContentType="application/idx" />
+        </ProgId>
+        <ProgId Id="Mplwin.Infeasibilityfile" Description="MPL Infeasibility File" Icon="[!Mplwin42EXE],8">
+          <Extension Id="iis" ContentType="application/iis" />
+        </ProgId>
+	  </Component>
+
+      <Component Id="MplwinEnvVars" Guid="8B74E11D-B8D7-4787-BCDF-9B5D1EBC3274"> 	   
+        <Environment Id="MplwinHome" Name="MPLWIN_HOME" Action="set" System="yes" Part="all" Permanent="yes" Value="[INSTALLDIR]" />
+        <Environment Id="MplwinModels" Name="MPLWIN_MODELS" Action="set" System="yes" Part="all" Permanent="yes" Value="%MPLWIN_HOME%" />
+        <Environment Id="MplwinBin" Name="MPLWIN_BIN" Action="set" System="yes" Part="all" Permanent="yes" Value="%MPLWIN_HOME%" />
+        <Environment Id="MplwinLic" Name="MPLWIN_LICENSE" Action="create" System="yes" Part="all" Permanent="yes" Value="%MPLWIN_HOME%\mplwin.lic" />
+      </Component>
+
+      <Component Id="MplwinPathVar" Guid="523CD67A-3A22-41BE-8CD8-4A012C0DDEDE"> 	   
+        <Environment Id="PATH" Name="PATH" Action="set" System="yes" Part="last" Permanent="yes" Value="%MPLWIN_BIN%" />
+      </Component>
+
+      <?ifdef Win32 ?>
+      <Component Id="Mpllib42DllFile" Guid="76EAF08A-58D7-4d24-BD7B-6DC79135440D">
+        <File Id="mpllib42.dll" Name="mpllib42.dll" DiskId="1" Source="..\Programs\mpllib42.dll" Vital="yes" />
+      </Component>
+      <?endif ?>
+      <?ifdef Win64 ?>
+      <Component Id="Mpllib42DllFile" Guid="DF8BDE9D-7501-468b-9AFC-68FCE6ADBEFF">
+        <File Id="mpllib42.dll" Name="mpllib42.dll" DiskId="1" Source="..\Programs\64bit\mpllib42.dll" Vital="yes" />
+      </Component>
+      <?endif ?>
+
+      <?ifdef Win32 ?>
+      <Component Id="Mpllib42LibFile" Guid="C4FBC724-29FB-4380-9255-EAC723C0F3A7">
+        <File Id="mpllib42.lib" Name="mpllib42.lib" DiskId="1" Source="..\Programs\mpllib42.lib" Vital="yes" />
+      </Component>
+      <?endif ?>
+      <?ifdef Win64 ?>
+      <Component Id="Mpllib42LibFile" Guid="A6CD2BC1-1321-4e0d-9DB6-245579CD7DED">
+        <File Id="mpllib42.lib" Name="mpllib42.lib" DiskId="1" Source="..\Programs\64bit\mpllib42.lib" Vital="yes" />
+      </Component>
+      <?endif ?>
+
+	  <Component Id="MpllibHFile" Guid="9DE0B45E-8F92-48fa-A1E8-DB6A62AA490F">
+        <File Id="mpllib.h" Name="mpllib.h" DiskId="1" Source="..\Programs\mpllib.h" Vital="yes" />
+	  </Component>
+	  
+	  <Component Id="HostInfoExeFile" Guid="01411F87-61BD-457f-AADC-C3D5D3688D88">
+        <File Id="hostinfo.exe" Name="hostinfo.exe" DiskId="1" Source="..\Programs\hostinfo.exe" Vital="yes" />
+	  </Component>
+	  
+      <?ifdef Win32 ?>
+      <Component Id="MaxlicExeFile" Guid="D5C9521B-09A6-43b6-9B74-4C9895A53DCA">
+        <File Id="maxlic.exe" Name="maxlic.exe" DiskId="1" Source="..\Programs\maxlic.exe" Vital="yes">
+          <Shortcut Id="StartMenu_maxlic.exe" Directory="ProgramMenuDir" Name="Maxlic"
+                    LongName="Maximal License Manager" WorkingDirectory="INSTALLDIR" />
+        </File>
+      </Component>
+      <?endif ?>
+      <?ifdef Win64 ?>
+      <Component Id="MaxlicExeFile" Guid="4060CDBF-BC19-4672-88DF-1527C667AD84">
+        <File Id="maxlic.exe" Name="maxlic.exe" DiskId="1" Source="..\Programs\64bit\maxlic.exe" Vital="yes">
+          <Shortcut Id="StartMenu_maxlic.exe" Directory="ProgramMenuDir" Name="Maxlic"
+                    LongName="Maximal License Manager (64-bit)" WorkingDirectory="INSTALLDIR" />
+        </File>
+      </Component>
+      <?endif ?>
+
+      <Component Id="Mplwin42IniFile" Guid="F7C86AD1-ED8D-4755-A37E-E78A4B5E5AC6">
+        <File Id="mplwin42.ini" Name="mplwin42.ini" DiskId="1" Source="..\Programs\mplwin42.ini" Vital="yes" />
+      </Component>
+
+      <?ifdef Win32 ?>
+      <Component Id="Mplwin42_32ExeFile" Guid="AFBDEDA4-6717-400b-BE19-94358689DDD6">
+        <File Id="mplwin42_32.exe" Name="mplw4232.exe" LongName="mplwin42_32.exe" DiskId="1" Source="..\Programs\mplwin42_32.exe" Vital="yes" />
+      </Component>
+
+	  <Component Id="KeylokExeFile" Guid="873ACAEE-D65F-412a-9269-982DD810422D">
+        <File Id="keylokEXE" Name="Keylok.exe" DiskId="1" Source="..\Programs\Keylok\Keylok.exe" Vital="yes" />
+	  </Component>
+
+      <Component Id="C4dllDLLFile" Guid="B999A4E8-B2FA-4677-B861-B345F47C6C7C">
+        <File Id="c4dll.dll" Name="c4dll.dll" DiskId="1" Source="..\Programs\c4dll.dll" Vital="yes" />
+      </Component>
+      <?endif ?>
+      <Component Id="MplHelpFiles" Guid="7E35941B-45AE-4add-A1E8-ED9E9C908267">
+        <File Id="mplwin42.hlp" Name="mplwin42.hlp" DiskId="1" Source="..\Programs\mplwin42.hlp" Vital="yes">
+          <Shortcut Id="StartMenu_mplwin42.hlp" Directory="ProgramMenuDir" Name="Mplhelp" LongName="MPL for Windows Help" />
+        </File>
+        <File Id="mplwin42.cnt" Name="mplwin42.cnt" DiskId="1" Source="..\Programs\mplwin42.cnt" Vital="yes" />
+        <File Id="mplwhat.hlp" Name="mplwhat.hlp" DiskId="1" Source="..\Programs\mplwhat.hlp" Vital="yes" />
+      </Component>
+     
+	  <Component Id="MplManPdfFile" Guid="1B38F56A-F01A-4871-8CE3-A1F0D13C0664">
+	    <File Id="Mplman42.pdf" Name="mplman42.pdf" LongName="MPLManual42.pdf" DiskId="1" Source="..\Programs\MPLManual42.pdf" Vital="no" />
+	  </Component>
+
+      <Component Id="MplModelFiles" Guid="0DED1C34-FC8E-46d1-B43C-F2A8B3A7AED4">
+        <File Id="Bakery.mpl" Name="Bakery.mpl" DiskId="1" Source="..\Models\Bakery.mpl" Vital="yes" />
+        <File Id="Capri.mpl" Name="Capri.mpl" DiskId="1" Source="..\Models\Capri.mpl" Vital="yes" />
+        <File Id="Diet.mpl" Name="Diet.mpl" DiskId="1" Source="..\Models\Diet.mpl" Vital="yes" />
+        <File Id="Nutri.dat" Name="Nutri.dat" DiskId="1" Source="..\Models\Nutri.dat" Vital="yes" />
+        <File Id="MultPlan.mpl" Name="MultPlan.mpl" DiskId="1" Source="..\Models\MultPlan.mpl" Vital="yes" />
+        <File Id="Plan.mpl" Name="Plan.mpl" DiskId="1" Source="..\Models\Plan.mpl" Vital="yes" />
+        <File Id="Planning.mpl" Name="Planning.mpl" DiskId="1" Source="..\Models\Planning.mpl" Vital="yes">
+          <!--Shortcut Id="StartMenu_planning.mpl" Directory="ProgramMenuDir" Name="planMPL"
+                LongName="Planning.mpl" WorkingDirectory="INSTALLDIR" Target="[!Mplwin42EXE]" Arguments=""%1""/-->
+          <!--Shortcut Id="StartMenu_Solve_planning.mpl" Directory="ProgramMenuDir" Name="solvPlan"
+                LongName="Solve Planning.mpl" WorkingDirectory="INSTALLDIR" Target="[!Mplwin42EXE]" Arguments="/solve "%1""/-->
+        </File>
+        <File Id="Models_Demand.dat" Name="Demand.dat" DiskId="1" Source="..\Models\Demand.dat" Vital="yes" />
+        <File Id="ProdPlan.mpl" Name="ProdPlan.mpl" DiskId="1" Source="..\Models\ProdPlan.mpl" Vital="yes" />
+        <File Id="Price.dat" Name="Price.dat" DiskId="1" Source="..\Models\Price.dat" Vital="yes" />
+        <File Id="Time.dat" Name="Time.dat" DiskId="1" Source="..\Models\Time.dat" Vital="yes" />
+        <File Id="Sales.dat" Name="Sales.dat" DiskId="1" Source="..\Models\Sales.dat" Vital="yes" />
+        <File Id="Transp.mpl" Name="Transp.mpl" DiskId="1" Source="..\Models\Transp.mpl" Vital="yes" />
+        <File Id="Trnsport.mpl" Name="Trnsport.mpl" DiskId="1" Source="..\Models\Trnsport.mpl" Vital="yes" />
+        <File Id="Trnsport.gdx" Name="Trnsport.gdx" DiskId="1" Source="..\Models\Trnsport.gdx" Vital="yes" />
+      </Component>
+
+      <Component Id="OptimaxModelFiles" Guid="0D7FCA4D-9EE8-4d8c-835F-199746F65923">
+        <File Id="CutStock.mpl" Name="CutStock.mpl" DiskId="1" Source="..\Models\CutStock.mpl" Vital="yes" />
+        <File Id="CutWidths.dat" Name="CutWidth.dat" LongName="CutWidths.dat" DiskId="1" Source="..\Models\CutWidths.dat" Vital="yes" />
+        <File Id="CutWaste.dat" Name="CutWaste.dat" LongName="CutWaste.dat" DiskId="1" Source="..\Models\CutWaste.dat" Vital="yes" />
+        <File Id="CutPatterns.dat" Name="CutPatt.dat" LongName="CutPatterns.dat" DiskId="1" Source="..\Models\CutPatterns.dat" Vital="yes" />
+        <File Id="FactPlan.mpl" Name="FactPlan.mpl" DiskId="1" Source="..\Models\FactPlan.mpl" Vital="yes" />
+        <File Id="JobSeq.mpl" Name="JobSeq.mpl" DiskId="1" Source="..\Models\JobSeq.mpl" Vital="yes" />
+        <File Id="LeastSquares.mpl" Name="LeastSqr.mpl" LongName="LeastSquares.mpl" DiskId="1" Source="..\Models\LeastSquares.mpl" Vital="yes" />
+        <File Id="Portfolio.mpl" Name="Portfol.mpl" LongName="Portfolio.mpl" DiskId="1" Source="..\Models\Portfolio.mpl" Vital="yes" />
+        <File Id="StockPrice.dat" Name="StockPri.dat" LongName="StockPrice.dat" DiskId="1" Source="..\Models\StockPrice.dat" Vital="yes" />
+        <File Id="ShortPath.mpl" Name="ShortPth.mpl" LongName="ShortPath.mpl" DiskId="1" Source="..\Models\ShortPath.mpl" Vital="yes" />
+        <File Id="Cities.dat" Name="Cities.dat" DiskId="1" Source="..\Models\Cities.dat" Vital="yes" />
+        <File Id="Routes.dat" Name="Routes.dat" DiskId="1" Source="..\Models\Routes.dat" Vital="yes" />
+        <File Id="Sudoku.mpl" Name="Sudoku.mpl" DiskId="1" Source="..\Models\Sudoku.mpl" Vital="yes" />
+        <File Id="Sudoku.dat" Name="Sudoku.dat" DiskId="1" Source="..\Models\Sudoku.dat" Vital="yes" />
+	  </Component>
+	  
+      <Directory Id="Tutorial" Name="Tutorial">
+        <Component Id="MplTutorialFiles" Guid="93CBE0C6-BB03-410f-91A7-23CA2C3F88AC">
+          <File Id="Model1.mpl" Name="Model1.mpl" DiskId="1" Source="..\Tutorial\Model1.mpl" Vital="no" />
+          <File Id="Bakery2.mpl" Name="Bakery2.mpl" DiskId="1" Source="..\Tutorial\Bakery2.mpl" Vital="no" />
+          <File Id="Planning3.mpl" Name="Plannin3.mpl" LongName="Planning3.mpl" DiskId="1" Source="..\Tutorial\Planning3.mpl" Vital="no" />
+          <File Id="Planning4.mpl" Name="Plannin4.mpl" LongName="Planning4.mpl" DiskId="1" Source="..\Tutorial\Planning4.mpl" Vital="no" />
+          <File Id="Planning5.mpl" Name="Plannin5.mpl" LongName="Planning5.mpl" DiskId="1" Source="..\Tutorial\Planning5.mpl" Vital="no" />
+          <File Id="Planning6.mpl" Name="Plannin6.mpl" LongName="Planning6.mpl" DiskId="1" Source="..\Tutorial\Planning6.mpl" Vital="no" />
+          <File Id="Planning7.mpl" Name="Plannin7.mpl" LongName="Planning7.mpl" DiskId="1" Source="..\Tutorial\Planning7.mpl" Vital="no" />
+          <File Id="Tutorial_Demand.dat" Name="Demand.dat" DiskId="1" Source="..\Tutorial\demand.dat" Vital="no" />
+          <File Id="ProdCost.dat" Name="ProdCost.dat" DiskId="1" Source="..\Tutorial\prodcost.dat" Vital="no" />
+          <File Id="ProdRate.dat" Name="ProdRate.dat" DiskId="1" Source="..\Tutorial\prodrate.dat" Vital="no" />
+          <File Id="Demand6.dat" Name="Demand6.dat" DiskId="1" Source="..\Tutorial\demand6.dat" Vital="no" />
+          <File Id="InvtCost.dat" Name="InvtCost.dat" DiskId="1" Source="..\Tutorial\invtcost.dat" Vital="no" />
+          <File Id="ShipCost.dat" Name="ShipCost.dat" DiskId="1" Source="..\Tutorial\shipcost.dat" Vital="no" />
+          <File Id="Produce.dat" Name="Produce.dat" DiskId="1" Source="..\Tutorial\produce.dat" Vital="no" />
+          <File Id="Plandb3.mpl" Name="Plandb3.mpl" LongName="Plandb3.mpl" DiskId="1" Source="..\Tutorial\Plandb3.mpl" Vital="no" />
+          <File Id="Plandb4.mpl" Name="Plandb4.mpl" LongName="Plandb4.mpl" DiskId="1" Source="..\Tutorial\Plandb4.mpl" Vital="no" />
+          <File Id="Plandb5.mpl" Name="Plandb5.mpl" LongName="Plandb5.mpl" DiskId="1" Source="..\Tutorial\Plandb5.mpl" Vital="no" />
+          <File Id="Plandb3.mdb" Name="Plandb3.mdb" LongName="Plandb3.mdb" DiskId="1" Source="..\Tutorial\Plandb3.mdb" Vital="no" />
+          <File Id="Plandb4.mdb" Name="Plandb4.mdb" LongName="Plandb4.mdb" DiskId="1" Source="..\Tutorial\Plandb4.mdb" Vital="no" />
+          <File Id="Plandb5.mdb" Name="Plandb5.mdb" LongName="Plandb5.mdb" DiskId="1" Source="..\Tutorial\Plandb5.mdb" Vital="no" />
+          <File Id="Plandb3.xls" Name="Plandb3.xls" LongName="Plandb3.xls" DiskId="1" Source="..\Tutorial\Plandb3.xls" Vital="no" />
+          <File Id="Plandb4.xls" Name="Plandb4.xls" LongName="Plandb4.xls" DiskId="1" Source="..\Tutorial\Plandb4.xls" Vital="no" />
+        </Component>
+      </Directory>
+      
+      <Directory Id="Stochastic" Name="Stoch" LongName="Stochastic">
+		<Component Id="MplStochModels" Guid="9B0724F4-24C9-4d6b-B37F-7E0DFA856DBD">
+			<File Id="AircraftAlloc.mpl" Name="Aircraft.mpl" DiskId="1" Source="..\Models\Stochastic\AircraftAlloc.mpl" Vital="no" />
+			<File Id="DakotaScen.mpl" Name="Dakota.mpl" LongName="DakotaScen.mpl" DiskId="1" Source="..\Models\Stochastic\DakotaScen.mpl" Vital="no" />
+			<File Id="FarmerScen.mpl" Name="Farmer.mpl" LongName="FarmerScen.mpl" DiskId="1" Source="..\Models\Stochastic\FarmerScen.mpl" Vital="no" />
+			<File Id="Farmer.dat" Name="Farmer.dat" LongName="Farmer.dat" DiskId="1" Source="..\Models\Stochastic\Farmer.dat" Vital="no" />
+			<File Id="InformerScen.mpl" Name="Informer.mpl" LongName="InformerScen.mpl" DiskId="1" Source="..\Models\Stochastic\InformerScen.mpl" Vital="no" />
+			<File Id="Invest3Scen.mpl" Name="Invest3.mpl" LongName="Invest3Scen.mpl" DiskId="1" Source="..\Models\Stochastic\Invest3Scen.mpl" Vital="no" />
+			<File Id="Invest4Scen.mpl" Name="Invest4.mpl" LongName="Invest4Scen.mpl" DiskId="1" Source="..\Models\Stochastic\Invest4Scen.mpl" Vital="no"></File>
+			<File Id="KandW3Scen.mpl" Name="KandW3Sc.mpl" LongName="KandW3Scen.mpl" DiskId="1" Source="..\Models\Stochastic\KandW3Scen.mpl" Vital="no" />
+			<File Id="KandW3.dat" Name="KandW3.dat" LongName="KandW3.dat" DiskId="1" Source="..\Models\Stochastic\KandW3.dat" Vital="no" />
+			<File Id="ProdMixScen.mpl" Name="ProdMix.mpl" LongName="ProdMixScen.mpl" DiskId="1" Source="..\Models\Stochastic\ProdMixScen.mpl" Vital="no" />
+			<File Id="WyndorScen.mpl" Name="WyndScen.mpl" LongName="WyndorScen.mpl" DiskId="1" Source="..\Models\Stochastic\WyndorScen.mpl" Vital="no" />
+		</Component>
+	  </Directory>
+
+      <Directory Id="GlobalModels" Name="GlobMod" LongName="GlobalModels">
+		<Component Id="MplGlobalModels" Guid="BD254E0C-E58D-44e2-9541-FB3DBE1533E6">
+			<File Id="Alkyl.mpl" Name="Alkyl.mpl" DiskId="1" Source="..\Models\Global\Alkyl.mpl" Vital="no" />
+			<File Id="BoxDesign.mpl" Name="BoxDsign.mpl" LongName="BoxDesign.mpl" DiskId="1" Source="..\Models\Global\BoxDesign.mpl" Vital="no" />
+			<File Id="CircuitDesign.mpl" Name="CircDes.mpl" LongName="CircuitDesign.mpl" DiskId="1" Source="..\Models\Global\CircuitDesign.mpl" Vital="no" />
+			<File Id="CircuitDesignB.mpl" Name="CircDesB.mpl" LongName="CircuitDesignB.mpl" DiskId="1" Source="..\Models\Global\CircuitDesignB.mpl" Vital="no" />
+			<File Id="Fjk1.mpl" Name="Fjk1.mpl" DiskId="1" Source="..\Models\Global\Fjk1.mpl" Vital="no" />
+			<File Id="Fjk2.mpl" Name="Fjk2.mpl" DiskId="1" Source="..\Models\Global\Fjk2.mpl" Vital="no"></File>
+			<File Id="Fjk3.mpl" Name="Fjk3.mpl" DiskId="1" Source="..\Models\Global\Fjk3.mpl" Vital="no" />
+			<File Id="Michalewicz.mpl" Name="Michalew.mpl" LongName="Michalewicz.mpl" DiskId="1" Source="..\Models\Global\Michalewicz.mpl" Vital="no" />
+			<File Id="QuadraticTest.mpl" Name="QuadTest.dat" LongName="QuadraticTest.mpl" DiskId="1" Source="..\Models\Global\QuadraticTest.mpl" Vital="no" />
+			<File Id="SmallConvex.mpl" Name="SmConvex.dat" LongName="SmallConvex.mpl" DiskId="1" Source="..\Models\Global\SmallConvex.mpl" Vital="no" />
+			<File Id="Trefethen.mpl" Name="Trefeth.dat" LongName="Trefethen.mpl" DiskId="1" Source="..\Models\Global\Trefethen.mpl" Vital="no" />
+			<File Id="TrigComps.mpl" Name="TrigComp.mpl" LongName="TrigComps.mpl" DiskId="1" Source="..\Models\Global\TrigComps.mpl" Vital="no" />
+			<File Id="WoodFct.mpl" Name="WoodFct.mpl" DiskId="1" Source="..\Models\Global\WoodFct.mpl" Vital="no" />
+			<File Id="WoodFctB.mpl" Name="WoodFctB.mpl" DiskId="1" Source="..\Models\Global\WoodFctB.mpl" Vital="no" />
+		</Component>
+	  </Directory>
+
+    </DirectoryRef>
+
+    <?ifdef Win32 ?>
+    <Feature Id="$(var.MplProgram)" Title="MPL for Windows" Description="The MPL for Windows." Level="1">
+      <ComponentRef Id="Mplwin42ExeFile" />
+	  <ComponentRef Id="MplwinProgIDs" />
+	  <ComponentRef Id="MplwinEnvVars" />
+	  <ComponentRef Id="MplwinPathVar" />
+      <ComponentRef Id="Mpllib42DllFile" />
+      <ComponentRef Id="Mpllib42LibFile" />
+	  <ComponentRef Id="MpllibHFile" />
+	  <ComponentRef Id="HostInfoExeFile" />
+      <ComponentRef Id="MaxlicExeFile" />
+      <ComponentRef Id="Mplwin42IniFile" />
+      <ComponentRef Id="MplHelpFiles" />
+      <ComponentRef Id="MplManPdfFile" />
+      <ComponentRef Id="Mplwin42_32ExeFile" />
+      <ComponentRef Id="KeylokExeFile" />
+      <ComponentRef Id="C4dllDLLFile" />
+      
+    <Feature Id="$(var.MplModels)" Title="MPL Model Files" Description="The MPL Sample Model Files." Level="1">
+      <ComponentRef Id="MplModelFiles" />
+      <ComponentRef Id="OptimaxModelFiles" />
+      <ComponentRef Id="MplTutorialFiles" />
+      <ComponentRef Id="MplStochModels" />
+      <ComponentRef Id="MplGlobalModels" />
+    </Feature>
+	
+    </Feature>
+    <?endif ?>
+
+    <?ifdef Win64 ?>
+    <Feature Id="$(var.MplProgram)" Title="MPL for Windows (64-bit)" Description="The MPL for Windows (64-bit)." Level="1">
+      <ComponentRef Id="Mplwin42ExeFile" />
+	  <ComponentRef Id="MplwinProgIDs" />
+	  <ComponentRef Id="MplwinEnvVars" />
+	  <ComponentRef Id="MplwinPathVar" />
+      <ComponentRef Id="Mpllib42DllFile" />
+      <ComponentRef Id="Mpllib42LibFile" />
+	  <ComponentRef Id="MpllibHFile" />
+	  <ComponentRef Id="HostInfoExeFile" />
+      <ComponentRef Id="MaxlicExeFile" />
+      <ComponentRef Id="Mplwin42IniFile" />
+      <ComponentRef Id="MplHelpFiles" />
+      <ComponentRef Id="MplManPdfFile" />
+      
+    <Feature Id="$(var.MplModels)" Title="MPL Model Files" Description="The MPL Sample Model Files." Level="1">
+      <ComponentRef Id="MplModelFiles" />
+      <ComponentRef Id="OptimaxModelFiles" />
+      <ComponentRef Id="MplTutorialFiles" />
+      <ComponentRef Id="MplStochModels" />
+      <ComponentRef Id="MplGlobalModels" />
+    </Feature>
+	
+    </Feature>
+    <?endif ?>
+
+  </Fragment>
+</Wix>
