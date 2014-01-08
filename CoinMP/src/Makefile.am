@@ -2,7 +2,7 @@
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
-## $Id: Makefile.am 428 2011-08-07 15:02:46Z stefan $
+## $Id: Makefile.am 619 2013-12-16 00:04:13Z tkr $
 
 # Author:  Andreas Waechter           IBM    2006-04-13
 
@@ -25,6 +25,11 @@ libCoinMP_la_SOURCES = \
 	CoinOption.c CoinOption.h \
 	CoinCbc.cpp CoinCbc.h \
 	CoinMPConfig.h
+
+# List all additionally required libraries
+if DEPENDENCY_LINKING
+libCoinMP_la_LIBADD = $(COINMP_LIBS)
+endif
 
 # This is for libtool (on Windows)
 libCoinMP_la_LDFLAGS = $(LT_LDFLAGS)

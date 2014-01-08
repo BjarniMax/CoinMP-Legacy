@@ -12,7 +12,7 @@
 /*                                                                      */
 /************************************************************************/
 
-// $Id: CoinMP.cpp 598 2013-12-02 04:36:24Z tkr $
+// $Id: CoinMP.cpp 625 2013-12-19 21:39:00Z tkr $
 
 #include <stdlib.h>
 #include <string.h>
@@ -36,9 +36,9 @@
 #include "CoinMP.h"
 
 
-const char*  COINMP_VERSIONSTR = "1.7.5";
-const int    COINMP_VERSIONINT = 175;
-const double COINMP_VERSIONDBL = 1.75;
+const char*  COINMP_VERSIONSTR = "1.7.6";
+const int    COINMP_VERSIONINT = 176;
+const double COINMP_VERSIONDBL = 1.76;
 
 const char*  COINMP_NAME       = "CoinMP";
 
