@@ -2,7 +2,7 @@
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
-## $Id: Makefile.am 431 2011-10-13 20:36:12Z stefan $
+## $Id: Makefile.am 632 2015-01-28 06:55:44Z tkr $
 
 # Author:  Andreas Waechter           IBM    2006-04-13
 
@@ -64,7 +64,7 @@ addlibs_DATA = examples/Makefile examples/example.c
 install-data-hook:
 	@$(mkdir_p) "$(addlibsdir)"
 if COIN_HAS_PKGCONFIG
-	PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@ \
+	PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@:$(DESTDIR)$(pkgconfiglibdir) \
 	$(PKG_CONFIG) --libs coinmp > $(addlibsdir)/coinmp_addlibs.txt
 else
 if COIN_CXX_IS_CL

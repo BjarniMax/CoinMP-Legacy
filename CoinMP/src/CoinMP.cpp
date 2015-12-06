@@ -12,7 +12,7 @@
 /*                                                                      */
 /************************************************************************/
 
-// $Id: CoinMP.cpp 625 2013-12-19 21:39:00Z tkr $
+// $Id: CoinMP.cpp 627 2014-01-07 16:26:51Z bjarni $
 
 #include <stdlib.h>
 #include <string.h>
@@ -27,7 +27,6 @@
 
 #include "CoinCbc.h"
 
-
 #include "config_coinmp_default.h"
 
 
@@ -40,7 +39,7 @@ const char*  COINMP_VERSIONSTR = "1.7.6";
 const int    COINMP_VERSIONINT = 176;
 const double COINMP_VERSIONDBL = 1.76;
 
-const char*  COINMP_NAME       = "CoinMP";
+const char* COINMP_NAME = "CoinMP";
 
 
 /************************************************************************/
@@ -101,7 +100,7 @@ SOLVAPI double SOLVCALL CoinGetVersion(void)
 SOLVAPI int SOLVCALL CoinGetFeatures(void)
 {
 	return SOLV_FEATURE_LP |
-			SOLV_FEATURE_MIP;
+		   SOLV_FEATURE_MIP;
 }
 
 
