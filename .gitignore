@@ -1,6 +1,8 @@
 CoinMP_zip/
 CoinMP_dist/
 obj/
+_UpgradeReport_Files/
+UpgradeLog.XML
 BuildLog.htm
 CoinMP.res
 mt.dep
@@ -13,3 +15,7 @@ unitTest.exe.embed.manifest.res
 unitTest.exe.intermediate.manifest
 *.idb
 *.exp
+*.tlog
+*.lastbuildstate
+*.sdf
+*.opensdf

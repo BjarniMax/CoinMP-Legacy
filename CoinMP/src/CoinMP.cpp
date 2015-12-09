@@ -4,15 +4,15 @@
 /*                                                                      */
 /*  File         :  'coinmp.cpp'                                        */
 /*                                                                      */
-/*  Version      :  1.7                                                 */
+/*  Version      :  1.8                                                 */
 /*                                                                      */
 /*  Author       :  Bjarni Kristjansson, Maximal Software               */
 /*                                                                      */
-/*  Copyright (c) 2002-2013                     Bjarni Kristjansson     */
+/*  Copyright (c) 2002-2015                     Bjarni Kristjansson     */
 /*                                                                      */
 /************************************************************************/
 
-// $Id: CoinMP.cpp 627 2014-01-07 16:26:51Z bjarni $
+// $Id: CoinMP.cpp 654 2015-12-08 11:42:19Z bjarni $
 
 #include <stdlib.h>
 #include <string.h>
@@ -35,9 +35,9 @@
 #include "CoinMP.h"
 
 
-const char*  COINMP_VERSIONSTR = "1.7.6";
-const int    COINMP_VERSIONINT = 176;
-const double COINMP_VERSIONDBL = 1.76;
+const char*  COINMP_VERSIONSTR = "1.8.4";
+const int    COINMP_VERSIONINT = 184;
+const double COINMP_VERSIONDBL = 1.84;
 
 const char* COINMP_NAME = "CoinMP";
 
